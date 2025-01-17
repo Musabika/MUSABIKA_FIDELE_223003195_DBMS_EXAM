@@ -1,0 +1,140 @@
+PART A
+
+database: CREATE DATABASE DBMS_Exam;
+CREATE TABLE client_master(ClientNo varchar(250) primary key AUTO_INCREMENT,Name varchar(250),Address varchar(250),city varchar(250),State varchar(250),bal_due int);
+
+question 1:
+
+insert INTO client_master VALUES('C123',"MUSABIKA Fidele","HUYE","BUTARE","Ruhande",8000);
+insert INTO client_master VALUES('C456',"MUGISHA yves","HUYE","UR","TUMBA",10000);
+insert INTO client_master VALUES('C789',"RUDASINGWA Allan ","NYAGATARE","NYAGATARE","Ruhande",8000);
+insert INTO client_master VALUES('C901',"kin man","nyamagabe","NYAMAGABE Camp","Ruhande",3000);
+insert INTO client_master VALUES('C902',"IRADUKUNDA Patrice","KIGALI","'nyamamirambo","nyamrambo",13000);
+
+question 2: 
+SELECT Name FROM  client_master WHERE bal_due > 5000
+
+qeustion 3:
+
+UPDATE client_master
+SET bal_due = 5100
+WHERE ClientNo = "C123"
+
+qeustion 5:
+
+select ClientNo,Name,Address,city,State,bal_due as BALANCE FROM client_master;
+
+
+PART B
+
+question 6
+
+the tables I used
+
+CREATE TABLE departments(dep_id int PRIMARY KEY,dep_name varchar(250),dep_no_employees int);
+CREATE TABLE employees(emp_id int primary key,emp_name varchar(250),emp_salary int,department_id int,FOREIGN KEY(department_id) REFERENCES departments(dep_id));
+
+
+a. 
+departments table 
+
+insert INTO departments VALUES(100,"IT",50);
+insert INTO departments VALUES(200,"data science",80);
+insert INTO departments VALUES(300,"Software engineering",10);
+insert INTO departments VALUES(400,"cloud computing",40);
+insert INTO departments VALUES(500,"HRM",10);
+
+
+employees table 
+
+INSERT INTO employees VALUES(101,"MUSABIKA Fidele",900000,300);
+INSERT INTO employees VALUES(102,"Rudasingwa Allan",700000,200);
+INSERT INTO employees VALUES(103,"MUUGISHA Yves",400000,400);
+INSERT INTO employees VALUES(104,"MUGISHA Eumenne",600000,100);
+INSERT INTO employees VALUES(105,"Hirwa Narada",1000000,500);
+
+b. 
+DESC employees;
+
+c. 
+select employees.emp_name,departments.dep_name 
+FROM employees 
+left JOIN departments 
+ON departments.dep_id = employees.emp_id
+
+d. 
+select employees.emp_name,departments.dep_name 
+FROM employees 
+RIGHT JOIN departments 
+ON departments.dep_id = employees.emp_id
+
+e. 
+SELECT *
+FROM employees
+WHERE emp_salary > (SELECT AVG(emp_salary) FROM employees);
+
+question 7:
+
+CREATE TABLE student(studentid varchar(5) PRIMARY KEY,fullnames varchar(25),gender varchar(6),age int,departments varchar(30));
+1. select * from student;
+2.  select * from student where gender="girl";
+3. select * from student where gender="boy";
+4. 
+INSERT INTO student VALUES(100,"MUSABIKA fidele","boy",21,"Data science");
+INSERT INTO student VALUES(101,"MUGISHA Yves","boy",22,"HRM");
+INSERT INTO student VALUES(102,"RUDASINGWA Allan","boy",23,"Software Engineering");
+INSERT INTO student VALUES(103,"IRADUKUNDA patrice","boy",31,"Media");
+INSERT INTO student VALUES(104,"HIRWA Narada","boy",17,"Finance");
+5. 
+delete FROM student where age > 20;
+ 
+question 9:
+
+
+CREATE TABLE employee(employees_id int PRIMARY KEY,First_name varchar(250),Last_name varchar(250),Email varchar(250),Phone_number int,Hire_date date,Job_id int,Salary int,Commision_pct varchar(250),Manager_id int,department_id int);
+a. select employees_id,First_name,Last_name,salary from employee;
+
+b. select * FROM employee WHERE Manager_id=100
+
+c. select First_name,Last_name 
+FROM employee
+WHERE Salary >= 4800
+
+d. 
+ SELECT * FROM employee 
+WHERE Last_name="AUSTIN";
+e. 
+select * from employee 
+WHERE department_id = 60 or department_id = 70 or department_id = 80;
+
+question 10:
+
+ CREATE TABLE sales(sales_no int PRIMARY KEY,salesname varchar(250),branch varchar(250),salesamount int,DOB date);
+
+a. 
+INSERT INTO sales VALUES(100,"MUSABIKA","huye",1000000,"2003-01-01");
+INSERT INTO sales VALUES(101,"MUGISHA","kigali",5000000,"2001-12-01");
+INSERT INTO sales VALUES(102,"MUGAMBIRA","nyamagabe",10000000,"2005-01-01");
+INSERT INTO sales VALUES(103,"Rudasingwa","kampala",100000,"2000-01-01");
+INSERT INTO sales VALUES(104,"Eumenne","Musanze",500000,"2002-12-01");
+
+b.
+SELECT SUM(salesamount) FROM sales;
+
+c.
+select avg(salesamount)
+FROM sales;
+
+d.
+
+SELECT DATE_FORMAT(DOB, '%d-%b-%y') AS `Dates of Birth`
+FROM sales
+WHERE MONTH(DOB) = 12;
+
+
+e. 
+
+select * from sales ORDER by salesname,DOB ASC;
+
+
+
